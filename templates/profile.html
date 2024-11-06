@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surrey - Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background-color: #25384a;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            box-sizing: border-box;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .nav-left img {
+            height: 40px;
+        }
+        .nav-center {
+            display: flex;
+            justify-content: center;
+            flex: 1;
+            gap: 20px;
+        }
+        .nav-center a {
+            text-decoration: none;
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        .nav-center a:hover {
+            color: hsl(49, 82%, 51%);
+        }
+        .nav-center .separator {
+            color: #ffffff;
+            font-size: 14px;
+            margin: 0 8px;
+            opacity: 0.6;
+        }
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .nav-right a {
+            text-decoration: none;
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        .nav-right a:hover {
+            color: #333;
+        }
+        nav a.active {
+            color: hsl(49, 82%, 51%);
+            border-bottom: 2px solid hsl(49, 82%, 51%);
+            font-weight: 700;
+        }
+
+
+        /* Profile Container */
+        .profile-container {
+            max-width: 800px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+
+        .profile-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            transition: transform 0.5s ease;
+        }
+
+        .profile-image img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 20px;
+            transition: transform 0.6s ease, width 0.6s ease, height 0.6s ease;
+        }
+
+        .profile-details {
+            text-align: left;
+        }
+
+        .profile-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .profile-tag {
+            background-color: #e6f0fa;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        /* Profile Stats */
+        .profile-stats {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            gap: 20px;
+        }
+
+        .profile-card {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            width: 100%;
+            display: block;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+            background-color: #f0f8ff;
+        }
+
+        /* Skills and Achievements */
+        .profile-skills, .profile-achievements {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            gap: 20px;
+        }
+
+        .skills, .achievements {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            width: 48%;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        .skills ul, .achievements ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .skills ul li, .achievements ul li {
+            display: inline-block;
+            background-color: #e6f0fa;
+            padding: 8px 12px;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 14px;
+        }
+
+        .achievements ul li img {
+            margin-right: 8px;
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Footer Section */
+        footer {
+            background-color: #25384a;
+            padding: 20px;
+            text-align: center;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="nav-left">
+            <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Surrey Logo" class="logo">
+        </div>
+        <div class="nav-center">
+            <a href="{{ url_for('academic.academic') }}">Academic Page</a>
+            <span class="separator">|</span>
+            <a href="{{ url_for('clubs.clubs') }}">Club Activities</a>
+            <span class="separator">|</span>
+            <a href="{{ url_for('placements.placements') }}">Job Placements</a>
+            <span class="separator">|</span>
+            <a href="{{ url_for('forum.forum') }}">Discussion Forum</a>
+        </div>
+        <div class="nav-right">
+            <a href="{{ url_for('dashboard.index') }}">Home</a>
+            <a href="{{ url_for('logout.logout') }}">Logout</a>
+        </div>
+    </nav>
+
+    <!-- Profile Container -->
+    <div class="profile-container" id="profile-container">
+        <h2>🎓 Student Profile</h2>
+        <div class="profile-info">
+            <div class="profile-image" id="profile-image">
+                <img src="{{ url_for('static', filename='images/user.jpg') }}" alt="User Image">
+            </div>
+            <div class="profile-details">
+                <p>
+                    <strong>Mukesh Saravanan</strong><br>
+                    Masters in Data Science | Class of 2023<br>
+                    University of Surrey
+                </p>
+                <div class="profile-tags">
+                    <span class="profile-tag">AI/ML</span>
+                    <span class="profile-tag">Web Development</span>
+                    <span class="profile-tag">Data Science</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Stats -->
+        <div class="profile-stats">
+            <a href="{{ url_for('academic.academic') }}" class="profile-card">
+                <h4>Academic Engagement</h4>
+                <p>GPA: 3.8/4.0</p>
+                <p>Courses Completed: 29/32</p>
+                <p>Research Projects: 2</p>
+            </a>
+            <a href="{{ url_for('clubs.clubs') }}" class="profile-card">
+                <h4>Club Activities</h4>
+                <p>Coding Club - President</p>
+                <p>AI Society - Member</p>
+                <p>Chess Club - Treasurer</p>
+            </a>
+            <a href="{{ url_for('placements.placements') }}" class="profile-card">
+                <h4>Job Applications</h4>
+                <p>Applications Sent: 12</p>
+                <p>Interviews Scheduled: 3</p>
+                <p>Offers Received: 1</p>
+            </a>
+        </div>
+
+        <!-- Skills and Achievements Section -->
+        <div class="profile-skills">
+            <div class="skills">
+                <h4>Skills</h4>
+                <ul>
+                    <li>Python</li>
+                    <li>JavaScript</li>
+                    <li>React</li>
+                    <li>TensorFlow</li>
+                    <li>SQL</li>
+                    <li>Git</li>
+                    <li>Docker</li>
+                </ul>
+            </div>
+            <div class="achievements">
+                <h4>Achievements</h4>
+                <ul>
+                    <li><img src="{{ url_for('static', filename='images/trophy.jpg') }}" alt="Trophy"> Dean's List - Fall 2024</li>
+                    <li><img src="{{ url_for('static', filename='images/medal.jpg') }}" alt="Medal"> 1st Place - University Hackathon 2024</li>
+                    <li><img src="{{ url_for('static', filename='images/certificate.jpg') }}" alt="Certificate"> Google Cloud Certified - Associate Cloud Engineer</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        &copy; 2024 Surrey University System. All Rights Reserved.
+    </footer>
+
+    <!-- JavaScript for Scroll Effects -->
+    <script>
+        window.addEventListener('scroll', function() {
+            const profileContainer = document.getElementById('profile-container');
+            const profileImage = document.getElementById('profile-image').querySelector('img');
+            if (window.scrollY > 100) {
+                profileContainer.style.transform = 'scale(0.95)';
+                profileImage.style.transform = 'scale(0.8)';
+            } else {
+                profileContainer.style.transform = 'scale(1)';
+                profileImage.style.transform = 'scale(1)';
+            }
+        });
+    </script>
+</body>
+</html>

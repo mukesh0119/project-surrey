@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Engagement - Track Your Progress</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background-color: #25384a;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            box-sizing: border-box;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .nav-left img {
+            height: 40px;
+        }
+        .nav-center {
+            display: flex;
+            justify-content: center;
+            flex: 1;
+            gap: 20px;
+        }
+        .nav-center a {
+            text-decoration: none;
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        .nav-center a:hover {
+            color: hsl(49, 82%, 51%);
+        }
+        .nav-center .separator {
+            color: #ffffff;
+            font-size: 14px;
+            margin: 0 8px;
+            opacity: 0.6;
+        }
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .nav-right a {
+            text-decoration: none;
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        .nav-right a:hover {
+            color: #333;
+        }
+        nav a.active {
+            color: hsl(49, 82%, 51%);
+            border-bottom: 2px solid hsl(49, 82%, 51%);
+            font-weight: 700;
+        }
+
+        .hero {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Set to full viewport height */
+    background: url('static/images/academic-hero.jpg') center/cover no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: height 0.6s ease, background-size 0.6s ease;
+    overflow: hidden;
+}
+
+.hero.shrink {
+    height: 70vh; /* Adjusted height on scroll to maintain readability */
+    background-size: cover;
+}
+
+
+.hero::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Overlay color and opacity */
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    color: white;
+    background: rgba(0, 0, 0, 0.6); /* Match background opacity */
+    padding: 40px;
+    border-radius: 16px; /* Rounded corners */
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Text shadow effect */
+    transition: transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1), 
+                padding 0.8s cubic-bezier(0.25, 0.1, 0.25, 1), 
+                opacity 0.8s ease;
+}
+.hero-content.shrink {
+    transform: scale(0.85); /* Smaller scale for smoother effect */
+    padding: 25px; /* Less padding reduction for smoother transition */
+    opacity: 0.95; /* Slight opacity adjustment */
+}
+        /* Cards Layout */
+        .cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    max-width: 1200px;
+    margin: 60px auto;
+}
+
+.cards.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            width: calc(33.33% - 20px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            background-color: #f0f8ff;
+        }
+
+        .card h4 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 16px;
+            color: #666;
+        }
+
+        .card a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .card a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #25384a;
+            padding: 20px;
+            text-align: center;
+            color: #ffffff;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav id="navbar">
+        <div class="nav-left">
+            <img src="static/images/academic-logo.png" alt="Surrey Logo">
+        </div>
+        <div class="nav-center">
+            <a href="{{ url_for('dashboard.index') }}">Home</a>
+            <span class="separator">|</span>
+            <a href="{{ url_for('academic.academic') }}" class="active">Academic Engagement</a>
+            <span class="separator">|</span>
+            <a href="{{ url_for('clubs.clubs') }}">Club Activities</a>
+            <span class="separator">|</span>
+            <a href="{{ url_for('placements.placements') }}" >Job Placements</a>
+            <span class="separator">|</span>
+            <a href="{{ url_for('forum.forum') }}">Discussion Forum</a>
+        </div>
+        <div class="nav-right">
+            <a href="{{ url_for('profile.profile') }}">Profile</a>
+            <a href="{{ url_for('logout.logout') }}">Logout</a>
+        </div>
+    </nav>
+
+    <!-- Main Content Section -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <h1>Track Your Academic Progress</h1>
+            <p>Here you can see detailed analytics of your academic engagement, such as time spent on each module, attendance percentage, and more.</p>
+        </div>
+    </section>
+    <!-- Cards Section (Initially Hidden) -->
+    <div class="cards visible" id="stats-cards">
+        <div class="card">
+            <h4>Module 1: Computer Science Basics</h4>
+            <p>Time Spent: <a href="#">50 hours</a></p>
+            <p>Engagement Level: 80%</p>
+            <p>Attendance: 95%</p>
+        </div>
+        <div class="card">
+            <h4>Module 2: Data Structures</h4>
+            <p>Time Spent: <a href="#">30 hours</a></p>
+            <p>Engagement Level: 70%</p>
+            <p>Attendance: 90%</p>
+        </div>
+        <div class="card">
+            <h4>Module 3: Web Development</h4>
+            <p>Time Spent: <a href="#">40 hours</a></p>
+            <p>Engagement Level: 85%</p>
+            <p>Attendance: 92%</p>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        &copy; 2024 Surrey University System. All Rights Reserved.
+    </footer>
+
+    <!-- JavaScript for Scroll Effects -->
+    <script>
+        window.addEventListener('scroll', function() {
+    const hero = document.getElementById('hero');
+    const heroContent = document.querySelector('.hero-content');
+    const statsCards = document.getElementById('stats-cards');
+    const windowHeight = window.innerHeight;
+    const revealPoint = 150;
+
+    // Shrink effect for the hero section and hero content
+    const isShrunk = window.scrollY > 100;
+    hero.classList.toggle('shrink', isShrunk);
+    heroContent.classList.toggle('shrink', isShrunk);
+
+    // Reveal the cards as they come into view
+    if (statsCards.getBoundingClientRect().top < windowHeight - revealPoint) {
+        statsCards.classList.add('visible');
+    } else {
+        statsCards.classList.remove('visible');
+    }
+});
+    </script>
+</body>
+</html>

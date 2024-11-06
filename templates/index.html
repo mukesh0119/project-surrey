@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surrey - Empowering Students for Success</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f8f8;
+            color: #333;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background-color: #25384a;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            box-sizing: border-box;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .nav-left img {
+            height: 40px;
+        }
+        .nav-center {
+            display: flex;
+            justify-content: center;
+            flex: 1;
+            gap: 20px;
+        }
+        .nav-center a {
+            text-decoration: none;
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        .nav-center a:hover {
+            color: hsl(49, 82%, 51%);
+        }
+        .nav-center .separator {
+            color: #ffffff;
+            font-size: 14px;
+            margin: 0 8px;
+            opacity: 0.6;
+        }
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .nav-right a {
+            text-decoration: none;
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        .nav-right a:hover {
+            color: #333;
+        }
+        nav a.active {
+            color: hsl(49, 82%, 51%);
+            border-bottom: 2px solid hsl(49, 82%, 51%);
+            font-weight: 700;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background: url('static/images/hero.jpg') center/cover no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: height 0.6s ease, background-size 0.6s ease;
+        }
+        .hero.shrink {
+            height: 60vh;
+            background-size: cover;
+        }
+        .hero::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.2); /* Overlay color and opacity */
+            z-index: 1;
+        }
+        .hero-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        color: white;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 40px;
+        border-radius: 10px;
+        transition: opacity 0.6s ease, transform 0.6s ease;
+        margin-top: 150px;
+        width: 60%;
+        max-width: 800px;
+        font-size: 1.2rem;
+    }
+
+    /* Adjust logo to be above the overlay */
+    .hero-logo {
+        position: absolute;
+        top: 20%;
+        left: 50%;
+        transform: translate(-50%, -10%) scale(2);
+        transition: all 0.6s ease;
+        width: 200px;
+        z-index: 2;
+    }
+        .hero.shrink .hero-logo {
+            top: 10px;
+            transform: translate(-30%, 0) scale(1);
+            width: 60px;
+        }
+
+        /* Feature Cards */
+        .features {
+            display: flex;
+            gap: 20px;
+            padding: 60px 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            box-sizing: border-box;
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .hero.shrink + .features {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feature-card {
+            background-color: #fff;
+            border-radius: 16px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+            width: 320px;
+            transition: transform 0.4s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+        .feature-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+        .feature-card-content {
+            padding: 10px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.5); /* Adjusted transparency */
+            color: white;
+            transition: background 0.3s ease;
+        }
+        .feature-card:hover .feature-card-content {
+            background: rgba(0, 0, 0, 0.6);
+        }
+        .feature-card h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 24px;
+            margin: 0;
+        }
+        .feature-card p {
+            font-size: 16px;
+            margin-top: 5px;
+        }
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        /* Footer Section */
+        footer {
+            background-color: #ffffff;
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid #e6e6e6;
+            color: #666;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav id="navbar">
+        <div class="nav-left">
+            <img src="static/images/logo.jpg" alt="Surrey Logo">
+        </div>
+        <div class="nav-center">
+            <a href="{{ url_for('academic.academic') }}">Academic Engagement</a>
+            <span class="separator">|</span>
+            <a href="{{ url_for('clubs.clubs') }}">Club Activities</a>
+            <span class="separator">|</span>
+            <a href="{{ url_for('placements.placements') }}">Job Placements</a>
+            <span class="separator">|</span>
+            <a href="{{ url_for('forum.forum') }}">Discussion Forum</a>
+        </div>
+        <div class="nav-right">
+            <a href="{{ url_for('profile.profile') }}">Profile</a>
+            <a href="{{ url_for('logout.logout') }}">Logout</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <img src="static/images/project_logo2.png" alt="Project Logo" class="hero-logo">
+        <div class="hero-content">
+            <h1>Empowering Students for Success</h1>
+            <p>Your journey to academic success starts here.</p>
+        </div>
+    </section>
+
+    <!-- Feature Cards Section -->
+    <section class="features">
+        <a href="{{ url_for('academic.academic') }}" class="feature-card" id="academic">
+            <img src="static/images/academic.jpg" alt="Academic Engagement">
+            <div class="feature-card-content">
+                <h3>Academic Engagement</h3>
+                <p>Track your academic progress and receive personalized recommendations.</p>
+            </div>
+        </a>
+        <a href="{{ url_for('clubs.clubs') }}" class="feature-card" id="clubs">
+            <img src="static/images/clubs.jpg" alt="Club Activities">
+            <div class="feature-card-content">
+                <h3>Club Activities</h3>
+                <p>Engage with clubs and societies that interest you.</p>
+            </div>
+        </a>
+        <a href="{{ url_for('placements.placements') }}" class="feature-card" id="jobs">
+            <img src="static/images/placements.jpg" alt="Job Placements">
+            <div class="feature-card-content">
+                <h3>Job Placements</h3>
+                <p>Find job opportunities tailored to your skills and interests.</p>
+            </div>
+        </a>
+        <a href="{{ url_for('forum.forum') }}" class="feature-card" id="forum">
+            <img src="static/images/forum.jpg" alt="Discussion Forum">
+            <div class="feature-card-content">
+                <h3>Discussion Forum</h3>
+                <p>Share ideas and connect with students and faculty.</p>
+            </div>
+        </a>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        &copy; 2024 Surrey University System. All Rights Reserved.
+    </footer>
+
+    <!-- JavaScript for Scroll Effect -->
+    <script>
+        window.addEventListener('scroll', function() {
+            const hero = document.getElementById('hero');
+            const isShrunk = window.scrollY > 100;
+            hero.classList.toggle('shrink', isShrunk);
+        });
+    </script>
+</body>
+</html>
